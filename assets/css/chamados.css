@@ -1,3 +1,28 @@
+:root {
+    --bg-main: #121214;
+    --bg-surface: #202024;
+    --border: #29292e;
+    --primary: #00b37e;
+    --primary-hover: #00875f;
+    --danger: #f75a68;
+    --admin: #e18824;
+    --text-main: #e1e1e6;
+    --text-muted: #8d8d99;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: var(--bg-main);
+    color: var(--text-main);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.6;
+}
+
 .nav-link {
     color: #fff;
     text-decoration: none;
@@ -6,163 +31,281 @@
 }
 
 .nav-link:hover {
-    color: #3ecf8e;
+    color: var(--primary);
 }
 
-body { 
-    background-color: rgb(60,60,60); 
-    font-family: Arial, sans-serif; 
-    margin: 0;
-    padding: 0;
-}
-
-.divMeio { 
-    border: 5px solid black; 
-    border-radius: 30px; 
-    background-color: rgb(246,248,211); 
-    margin: 80px auto; 
-    width: 800px; 
-    padding: 40px; 
-    box-sizing: border-box;
-}
-
-h1 { 
-    text-align: center; 
-    font-size: 40px; 
-    font-weight: 900; 
-    margin-top: 0;
-}
-
-label { 
-    display: block; 
-    font-weight: 900; 
-    font-size: 18px; 
-    margin-top: 15px; 
-    margin-bottom: 5px; 
-}
-
-input, select { 
-    font-size: 16px; 
-    width: 100%; 
-    padding: 10px; 
-    border-radius: 10px; 
-    border: 2px solid #444; 
-    box-sizing: border-box; 
-    margin-bottom: 20px; 
-}
-
-button { 
-    border: 4px solid black; 
-    background-color: rgb(60,60,60); 
-    color: white; 
-    padding: 12px 30px; 
-    font-size: 18px; 
-    cursor: pointer; 
-    margin-right: 10px; 
-    border-radius: 5px;
-}
-
-button:hover {
-    background-color: #444;
-}
-
-.erro { 
-    color: red; 
-    font-weight: bold; 
-    margin-bottom: 20px; 
-    text-align: center; 
-}
-textarea {
-    font-size: 16px;
+/* ============================================
+   CONTAINER PRINCIPAL (antiga .divMeio)
+   ============================================ */
+.divMeio {
+    background-color: var(--bg-surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    margin: 60px auto;
     width: 100%;
-    padding: 10px;
-    border-radius: 10px;
-    border: 2px solid #444;
+    max-width: 800px;
+    padding: 40px;
+    box-sizing: border-box;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.35);
+}
+
+h1 {
+    text-align: center;
+    font-size: 32px;
+    font-weight: 800;
+    margin-top: 0;
+    margin-bottom: 24px;
+    color: #ffffff;
+}
+
+label {
+    display: block;
+    font-weight: 600;
+    font-size: 14px;
+    margin-top: 15px;
+    margin-bottom: 6px;
+    color: var(--text-main);
+}
+
+input, select, textarea {
+    font-size: 15px;
+    width: 100%;
+    padding: 12px 14px;
+    border-radius: 6px;
+    border: 1px solid var(--border);
+    background-color: var(--bg-main);
+    color: #ffffff;
     box-sizing: border-box;
     margin-bottom: 20px;
-    font-family: Arial, sans-serif;
+    outline: none;
+    transition: border-color 0.2s;
+    font-family: inherit;
+}
+
+input:focus, select:focus, textarea:focus {
+    border-color: var(--primary);
+}
+
+textarea {
     resize: vertical;
 }
 
+button {
+    border: none;
+    background-color: var(--primary);
+    color: #ffffff;
+    padding: 12px 28px;
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+    margin-right: 10px;
+    border-radius: 6px;
+    transition: background-color 0.2s, transform 0.1s;
+}
+
+button:hover {
+    background-color: var(--primary-hover);
+}
+
+button:active {
+    transform: scale(0.98);
+}
+
+.erro {
+    color: var(--danger);
+    font-weight: bold;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+/* ============================================
+   LISTA / CARDS DE CHAMADOS
+   ============================================ */
+#listaChamados {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
 #listaChamados .chamado-card {
-    border: 2px solid #444;
+    border: 1px solid var(--border);
     border-radius: 10px;
-    padding: 12px 16px;
+    padding: 20px;
+    background-color: var(--bg-main);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+    transition: border-color 0.2s, transform 0.15s;
+}
+
+#listaChamados .chamado-card:hover {
+    border-color: #3a3a42;
+    transform: translateY(-2px);
+}
+
+.chamado-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 12px;
     margin-bottom: 10px;
-    background-color: #fff;
+}
+
+.chamado-titulo {
+    font-size: 17px;
+    font-weight: 700;
+    color: #ffffff;
+}
+
+.chamado-descricao {
+    color: var(--text-muted);
+    font-size: 14px;
+    margin-bottom: 14px;
+}
+
+.chamado-meta {
+    color: var(--text-muted);
+    font-size: 13px;
+    margin-bottom: 14px;
 }
 
 #listaChamados .status-badge {
     display: inline-block;
-    padding: 2px 10px;
+    padding: 4px 10px;
     border-radius: 20px;
-    font-weight: bold;
-    font-size: 13px;
+    font-weight: 700;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
 }
 
-.status-analise { background-color: #ffe08a; }
-.status-reparo { background-color: #8ac9ff; }
-.status-finalizado { background-color: #8affa0; }
+.status-analise { background-color: rgba(225, 136, 36, 0.15); color: #e18824; }
+.status-reparo { background-color: rgba(72, 143, 243, 0.15); color: #488ff3; }
+.status-finalizado { background-color: rgba(0, 179, 126, 0.15); color: #00b37e; }
 
 /* ============================================
-   MOBILE FIRST — este é o padrão que já existe
-   (funciona em qualquer tamanho de tela)
+   AÇÕES DO CARD (editar / excluir / atribuir)
    ============================================ */
+.chamado-acoes {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 14px;
+    padding-top: 14px;
+    border-top: 1px solid var(--border);
+}
 
-/* TABLET — telas a partir de 768px (iPads, tablets) */
+.btn-action {
+    background-color: transparent;
+    border: 1px solid var(--border);
+    color: var(--text-main);
+    padding: 6px 14px;
+    border-radius: 6px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    margin-right: 0;
+    transition: all 0.2s;
+}
+
+.btn-edit {
+    border-color: #488ff3;
+    color: #488ff3;
+}
+.btn-edit:hover {
+    background-color: rgba(72, 143, 243, 0.12);
+}
+
+.btn-delete {
+    border-color: var(--danger);
+    color: var(--danger);
+}
+.btn-delete:hover {
+    background-color: var(--danger);
+    color: #ffffff;
+}
+
+/* Botão de atribuir funcionário — só deve aparecer para admin (controlado via JS com a classe .admin-only) */
+.btn-assign {
+    border-color: var(--admin);
+    color: var(--admin);
+}
+.btn-assign:hover {
+    background-color: rgba(225, 136, 36, 0.15);
+}
+
+/* ============================================
+   VISIBILIDADE POR PERFIL (admin x funcionário comum)
+   Adicione esta classe no HTML nos elementos/botões
+   que só o admin pode ver, e controle via JS:
+   ex: if (perfil !== 'admin') { elemento.style.display = 'none' }
+   ============================================ */
+.admin-only {
+    /* nenhum estilo próprio; serve apenas como gancho para o JS mostrar/ocultar */
+}
+
+.badge-admin {
+    color: var(--admin);
+    margin-left: 6px;
+    font-size: 12px;
+    border: 1px solid var(--admin);
+    padding: 2px 6px;
+    border-radius: 4px;
+}
+
+/* ============================================
+   RESPONSIVO
+   ============================================ */
 @media (min-width: 768px) {
-    .auth-card {
-        max-width: 480px;
+    .divMeio {
         padding: 48px;
     }
 
-    .auth-header h2 {
-        font-size: 32px;
+    h1 {
+        font-size: 36px;
     }
 }
 
-/* NOTEBOOK/DESKTOP PEQUENO — a partir de 1024px */
 @media (min-width: 1024px) {
-    .auth-card {
-        max-width: 500px;
+    .divMeio {
+        max-width: 900px;
     }
 }
 
-/* DESKTOP GRANDE — a partir de 1440px */
 @media (min-width: 1440px) {
-    .auth-card {
-        max-width: 550px;
+    .divMeio {
+        max-width: 1000px;
     }
 }
 
-/* ============================================
-   CELULAR PEQUENO — até 480px (ajustes extras)
-   ============================================ */
 @media (max-width: 480px) {
-    .auth-container {
-        padding: 16px;
+    .divMeio {
+        margin: 24px auto;
+        padding: 20px;
+        border-radius: 8px;
     }
 
-    .auth-card {
-        padding: 24px;
-        border-radius: 6px;
+    h1 {
+        font-size: 24px;
     }
 
-    .auth-header h2 {
-        font-size: 22px;
-    }
-
-    .auth-header p {
-        font-size: 13px;
-    }
-
-    .form-group input {
-        padding: 12px;
+    input, select, textarea {
+        padding: 10px 12px;
         font-size: 14px;
     }
 
-    .btn-block {
-        padding: 12px;
+    button {
+        padding: 10px 20px;
         font-size: 14px;
+        width: 100%;
+        margin-right: 0;
+        margin-bottom: 10px;
+    }
+
+    .chamado-acoes {
+        flex-direction: column;
+    }
+
+    .btn-action {
+        width: 100%;
+        text-align: center;
     }
 }

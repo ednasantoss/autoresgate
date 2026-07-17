@@ -127,7 +127,14 @@ body {
     display: flex;
     flex-direction: column;
     gap: 12px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.25);
+    transition: border-color 0.2s, transform 0.15s, box-shadow 0.2s;
+}
+
+.car-card:hover {
+    border-color: #3a3a42;
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.35);
 }
 
 .car-card h4 {
@@ -257,6 +264,52 @@ body {
     color: #3ecf8e;
     border-color: #3ecf8e;
 }
+
+/* ============================================
+   AÇÕES DO CARD (editar / excluir)
+   ============================================ */
+.car-acoes {
+    display: flex;
+    gap: 8px;
+    margin-top: 8px;
+    padding-top: 12px;
+    border-top: 1px solid #29292e;
+}
+
+.btn-edit {
+    background-color: transparent;
+    border: 1px solid #488ff3;
+    color: #488ff3;
+    padding: 6px 14px;
+    border-radius: 6px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+.btn-edit:hover {
+    background-color: rgba(72, 143, 243, 0.12);
+}
+
+.btn-delete {
+    background-color: transparent;
+    border: 1px solid #f75a68;
+    color: #f75a68;
+    padding: 6px 14px;
+    border-radius: 6px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+.btn-delete:hover {
+    background-color: #f75a68;
+    color: #ffffff;
+}
+
+/* Gancho para o JS ocultar elementos só-admin (ex: elemento.style.display = 'none' se perfil !== 'admin') */
+.admin-only {
+}
 @media (max-width: 768px) {
     .page-header {
         flex-direction: column;
@@ -276,5 +329,14 @@ body {
     .modal-card {
         max-width: 90%;
         padding: 20px;
+    }
+
+    .car-acoes {
+        flex-direction: column;
+    }
+
+    .btn-edit, .btn-delete {
+        width: 100%;
+        text-align: center;
     }
 }

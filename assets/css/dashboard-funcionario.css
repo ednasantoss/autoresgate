@@ -45,6 +45,18 @@ body {
     gap: 20px;
 }
 
+.nav-link {
+    color: #8d8d99;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 14px;
+    transition: color 0.2s;
+}
+
+.nav-link:hover {
+    color: #e18824;
+}
+
 .user-info {
     display: flex;
     flex-direction: column;
@@ -178,6 +190,16 @@ tr:hover td {
 .btn-action:hover {
     border-color: #e18824;
     color: #e18824;
+}
+
+.btn-action.btn-delete {
+    border-color: #f75a68;
+    color: #f75a68;
+}
+
+.btn-action.btn-delete:hover {
+    background-color: #f75a68;
+    color: #ffffff;
 }
 
 .btn-primary-admin {
