@@ -9,7 +9,7 @@ body {
     color: #e1e1e6;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     line-height: 1.6;
-    background-image: './assets/img/foto.png';
+    background-image: url('../img/foto.png');
 }
 
 .auth-container {
