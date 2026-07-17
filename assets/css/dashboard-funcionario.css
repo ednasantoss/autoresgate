@@ -254,66 +254,42 @@ tr:hover td {
     margin-top:20px;
 
 }
+@media (max-width: 768px) {
+        .nav-container {
+                flex-direction: column;
+                        gap: 12px;
+                                align-items: flex-start;
+                                    }
 
-/* ============================================
-   MOBILE FIRST — este é o padrão que já existe
-      (funciona em qualquer tamanho de tela)
-         ============================================ */
+                                        .main-container {
+                                                padding: 0 16px;
+                                                        margin: 24px auto;
+                                                            }
 
-         /* TABLET — telas a partir de 768px (iPads, tablets) */
-         @media (min-width: 768px) {
-             .auth-card {
-                     max-width: 480px;
-                             padding: 48px;
-                                 }
+                                                                .modal-content {
+                                                                        width: 90%;
+                                                                            }
 
-                                     .auth-header h2 {
-                                             font-size: 32px;
-                                                 }
-                                                 }
+                                                                                table thead {
+                                                                                        display: none;
+                                                                                            }
 
-                                                 /* NOTEBOOK/DESKTOP PEQUENO — a partir de 1024px */
-                                                 @media (min-width: 1024px) {
-                                                     .auth-card {
-                                                             max-width: 500px;
-                                                                 }
-                                                                 }
+                                                                                                table, tbody, tr, td {
+                                                                                                        display: block;
+                                                                                                                width: 100%;
+                                                                                                                    }
 
-                                                                 /* DESKTOP GRANDE — a partir de 1440px */
-                                                                 @media (min-width: 1440px) {
-                                                                     .auth-card {
-                                                                             max-width: 550px;
-                                                                                 }
-                                                                                 }
+                                                                                                                        tr {
+                                                                                                                                margin-bottom: 16px;
+                                                                                                                                        border: 1px solid #29292e;
+                                                                                                                                                border-radius: 8px;
+                                                                                                                                                        padding: 12px;
+                                                                                                                                                            }
 
-                                                                                 /* ============================================
-                                                                                    CELULAR PEQUENO — até 480px (ajustes extras)
-                                                                                       ============================================ */
-                                                                                       @media (max-width: 480px) {
-                                                                                           .auth-container {
-                                                                                                   padding: 16px;
-                                                                                                       }
-
-                                                                                                           .auth-card {
-                                                                                                                   padding: 24px;
-                                                                                                                           border-radius: 6px;
-                                                                                                                               }
-
-                                                                                                                                   .auth-header h2 {
-                                                                                                                                           font-size: 22px;
-                                                                                                                                               }
-
-                                                                                                                                                   .auth-header p {
-                                                                                                                                                           font-size: 13px;
-                                                                                                                                                               }
-
-                                                                                                                                                                   .form-group input {
-                                                                                                                                                                           padding: 12px;
-                                                                                                                                                                                   font-size: 14px;
-                                                                                                                                                                                       }
-
-                                                                                                                                                                                           .btn-block {
-                                                                                                                                                                                                   padding: 12px;
-                                                                                                                                                                                                           font-size: 14px;
-                                                                                                                                                                                                               }
-                                                                                                                                                                                                               }
+                                                                                                                                                                td {
+                                                                                                                                                                        border-bottom: none;
+                                                                                                                                                                                padding: 8px 0;
+                                                                                                                                                                                        display: flex;
+                                                                                                                                                                                                justify-content: space-between;
+                                                                                                                                                                                                    }
+                                                                                                                                                                                                    }

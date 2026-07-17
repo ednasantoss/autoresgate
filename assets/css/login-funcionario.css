@@ -111,66 +111,16 @@ body {
 .auth-footer .back-link:hover {
     color: #e1e1e6;
 }
+@media (max-width: 480px) {
+        .auth-card {
+                padding: 24px;
+                    }
 
-/* ============================================
-   MOBILE FIRST — este é o padrão que já existe
-      (funciona em qualquer tamanho de tela)
-         ============================================ */
+                        .auth-header h2 {
+                                font-size: 22px;
+                                    }
 
-         /* TABLET — telas a partir de 768px (iPads, tablets) */
-         @media (min-width: 768px) {
-             .auth-card {
-                     max-width: 480px;
-                             padding: 48px;
-                                 }
-
-                                     .auth-header h2 {
-                                             font-size: 32px;
-                                                 }
-                                                 }
-
-                                                 /* NOTEBOOK/DESKTOP PEQUENO — a partir de 1024px */
-                                                 @media (min-width: 1024px) {
-                                                     .auth-card {
-                                                             max-width: 500px;
-                                                                 }
-                                                                 }
-
-                                                                 /* DESKTOP GRANDE — a partir de 1440px */
-                                                                 @media (min-width: 1440px) {
-                                                                     .auth-card {
-                                                                             max-width: 550px;
-                                                                                 }
-                                                                                 }
-
-                                                                                 /* ============================================
-                                                                                    CELULAR PEQUENO — até 480px (ajustes extras)
-                                                                                       ============================================ */
-                                                                                       @media (max-width: 480px) {
-                                                                                           .auth-container {
-                                                                                                   padding: 16px;
-                                                                                                       }
-
-                                                                                                           .auth-card {
-                                                                                                                   padding: 24px;
-                                                                                                                           border-radius: 6px;
-                                                                                                                               }
-
-                                                                                                                                   .auth-header h2 {
-                                                                                                                                           font-size: 22px;
-                                                                                                                                               }
-
-                                                                                                                                                   .auth-header p {
-                                                                                                                                                           font-size: 13px;
-                                                                                                                                                               }
-
-                                                                                                                                                                   .form-group input {
-                                                                                                                                                                           padding: 12px;
-                                                                                                                                                                                   font-size: 14px;
-                                                                                                                                                                                       }
-
-                                                                                                                                                                                           .btn-block {
-                                                                                                                                                                                                   padding: 12px;
-                                                                                                                                                                                                           font-size: 14px;
-                                                                                                                                                                                                               }
-                                                                                                                                                                                                               }
+                                        .form-group input, .form-group select {
+                                                padding: 12px;
+                                                    }
+                                                    }
