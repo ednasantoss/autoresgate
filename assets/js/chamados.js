@@ -9,6 +9,9 @@ if (!clienteData) {
 
 const cliente = JSON.parse(clienteData);
 
+let chamadoEmEdicao = null; // guarda o id do chamado quando o modal está em modo de edição
+let chamadosCache = [];     // guarda a última lista carregada, usada para preencher o modal de edição
+
 window.addEventListener('pageshow', (event) => {
     if (event.persisted) {
         const dadosAtuais = localStorage.getItem('clienteLogado');
@@ -35,6 +38,8 @@ async function carregarChamados() {
 
         if (!response.ok) throw new Error(dados.erro || 'Erro ao carregar chamados.');
 
+        chamadosCache = dados;
+
         if (dados.length === 0) {
             grid.innerHTML = `<div class="loading">Você ainda não abriu nenhum chamado.</div>`;
             return;
@@ -45,12 +50,24 @@ async function carregarChamados() {
             if (os.status === 'Em Reparo') statusClass = 'reparo';
             if (os.status === 'Finalizado') statusClass = 'finalizado';
 
+            // Só permite editar/excluir enquanto o chamado ainda está em análise
+            // (depois que entra em reparo, já está sendo tratado pela oficina)
+            const podeEditar = os.status === 'Em Análise';
+
+            const acoes = podeEditar ? `
+                <div class="car-acoes">
+                    <button class="btn-edit" onclick="editarChamado(${os.id_os})">Editar</button>
+                    <button class="btn-delete" onclick="excluirChamado(${os.id_os})">Excluir</button>
+                </div>
+            ` : '';
+
             return `
-                <div class="card-carro">
-                    <h3>#${os.id_os} - ${os.titulo}</h3>
-                    <p>${os.marca} ${os.modelo} — <strong>${os.placa.toUpperCase()}</strong></p>
-                    <p>${os.descricao || 'Sem descrição adicional.'}</p>
-                    <span class="status ${statusClass}">${os.status}</span>
+                <div class="car-card">
+                    <h4>#${os.id_os} - ${os.titulo}</h4>
+                    <p class="car-info">${os.marca} ${os.modelo} — <span>${os.placa.toUpperCase()}</span></p>
+                    <p class="car-info">${os.descricao || 'Sem descrição adicional.'}</p>
+                    <span class="status-badge status-${statusClass}">${os.status}</span>
+                    ${acoes}
                 </div>
             `;
         }).join('');
@@ -90,48 +107,77 @@ function configurarModal() {
     const btnAbrir = document.getElementById('btnAbrirModal');
     const btnFechar = document.getElementById('btnFecharModal');
     const form = document.getElementById('formAbrirChamado');
+    const modalTitulo = document.getElementById('modalChamadoTitulo');
+    const btnSalvar = document.getElementById('btnSalvarChamado');
+    const veiculoGroup = document.getElementById('veiculoSelectGroup');
 
     btnAbrir.addEventListener('click', () => {
+        chamadoEmEdicao = null;
+        form.reset();
+        if (modalTitulo) modalTitulo.textContent = 'Abrir Novo Chamado';
+        if (btnSalvar) btnSalvar.textContent = 'Abrir Chamado';
+        if (veiculoGroup) veiculoGroup.style.display = 'flex';
         modal.classList.add('active');
         carregarVeiculosDoCliente();
     });
 
-    btnFechar.addEventListener('click', () => {
-        modal.classList.remove('active');
-        form.reset();
+    btnFechar.addEventListener('click', () => fecharModalChamado());
+
+    modal.addEventListener('click', (e) => {
+        if (e.target === modal) fecharModalChamado();
     });
+
+    function fecharModalChamado() {
+        modal.classList.remove('active');
+        chamadoEmEdicao = null;
+        form.reset();
+    }
 
     form.addEventListener('submit', async (e) => {
         e.preventDefault();
 
-        const id_veiculos = document.getElementById('veiculoSelect').value;
         const titulo = document.getElementById('titulo').value.trim();
         const descricao = document.getElementById('descricao').value.trim();
 
-        if (!id_veiculos) {
-            alert('Selecione um veículo.');
-            return;
-        }
-
         try {
-            const response = await fetch(`${API_URL}/chamados`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    id_cliente: cliente.id_cliente,
-                    id_veiculos,
-                    titulo,
-                    descricao
-                })
-            });
+            const editando = chamadoEmEdicao !== null;
 
-            const dados = await response.json();
+            if (editando) {
+                const response = await fetch(`${API_URL}/chamados/${chamadoEmEdicao}`, {
+                    method: 'PUT',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ titulo, descricao })
+                });
 
-            if (!response.ok) throw new Error(dados.erro || 'Erro ao abrir chamado.');
+                const dados = await response.json();
+                if (!response.ok) throw new Error(dados.erro || 'Erro ao atualizar chamado.');
 
-            alert('Chamado aberto com sucesso!');
-            modal.classList.remove('active');
-            form.reset();
+                alert('Chamado atualizado com sucesso!');
+            } else {
+                const id_veiculos = document.getElementById('veiculoSelect').value;
+                if (!id_veiculos) {
+                    alert('Selecione um veículo.');
+                    return;
+                }
+
+                const response = await fetch(`${API_URL}/chamados`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        id_cliente: cliente.id_cliente,
+                        id_veiculos,
+                        titulo,
+                        descricao
+                    })
+                });
+
+                const dados = await response.json();
+                if (!response.ok) throw new Error(dados.erro || 'Erro ao abrir chamado.');
+
+                alert('Chamado aberto com sucesso!');
+            }
+
+            fecharModalChamado();
             carregarChamados();
 
         } catch (erro) {
@@ -139,6 +185,45 @@ function configurarModal() {
             alert(erro.message);
         }
     });
+}
+
+function editarChamado(idOs) {
+    const chamado = chamadosCache.find(c => c.id_os === idOs);
+    if (!chamado) return;
+
+    chamadoEmEdicao = idOs;
+
+    document.getElementById('titulo').value = chamado.titulo;
+    document.getElementById('descricao').value = chamado.descricao || '';
+
+    const modalTitulo = document.getElementById('modalChamadoTitulo');
+    const btnSalvar = document.getElementById('btnSalvarChamado');
+    const veiculoGroup = document.getElementById('veiculoSelectGroup');
+    if (modalTitulo) modalTitulo.textContent = 'Editar Chamado';
+    if (btnSalvar) btnSalvar.textContent = 'Salvar Alterações';
+    if (veiculoGroup) veiculoGroup.style.display = 'none'; // não faz sentido trocar o veículo de um chamado já aberto
+
+    document.getElementById('modalChamado').classList.add('active');
+}
+
+async function excluirChamado(idOs) {
+    if (!confirm('Tem certeza que deseja excluir este chamado? Essa ação não pode ser desfeita.')) return;
+
+    try {
+        const response = await fetch(`${API_URL}/chamados/${idOs}`, {
+            method: 'DELETE'
+        });
+
+        const dados = await response.json().catch(() => ({}));
+
+        if (!response.ok) throw new Error(dados.erro || 'Erro ao excluir chamado.');
+
+        alert('Chamado excluído com sucesso!');
+        carregarChamados();
+    } catch (erro) {
+        console.error(erro);
+        alert(erro.message);
+    }
 }
 
 function configurarLogout() {
