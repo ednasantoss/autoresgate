@@ -14,6 +14,7 @@
         <div class="nav-container">
             <span class="logo">Mecânica<span class="badge-admin">CORP</span></span>
             <div class="nav-user">
+                <a href="funcionarios.html" class="nav-link admin-only" style="display:none;">Gerenciar Equipe</a>
                 <div class="user-info">
                     <span id="nomeFuncionario">Carregando...</span>
                     <small id="cargoFuncionario">Acessando...</small>
@@ -29,7 +30,7 @@
                 <h2>Gerenciamento de Ordens de Serviço</h2>
                 <p>Monitore e atualize as ordens de manutenção da oficina em tempo real.</p>
             </div>
-            <button id="btnCadastrarFuncionario" class="btn-primary-admin" style="display: none;"
+            <button id="btnCadastrarFuncionario" class="btn-primary-admin admin-only" style="display: none;"
                 onclick="window.location.href='cadastro-funcionario.html'">
                 + Cadastrar Funcionário
             </button>

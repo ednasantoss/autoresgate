@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerenciar Equipe - Oficina</title>
+    <link rel="stylesheet" href="../css/funcionarios.css">
+</head>
+
+<body>
+
+    <nav class="navbar">
+        <div class="nav-container">
+            <span class="logo">Mecânica<span>PRO</span></span>
+            <div class="nav-user">
+                <a href="dashboard-funcionario.html" class="nav-link">← Ordens de Serviço</a>
+                <span id="nomeFuncionario">Carregando...</span>
+                <button id="btnSairAdmin" class="btn-sair">Sair</button>
+            </div>
+        </div>
+    </nav>
+
+    <main class="main-container">
+        <div class="page-header">
+            <div>
+                <h2>Gerenciar Equipe</h2>
+                <p>Visualize, edite ou remova os colaboradores da oficina.</p>
+            </div>
+            <button class="btn-primary" onclick="window.location.href='cadastro-funcionario.html'">
+                + Cadastrar Funcionário
+            </button>
+        </div>
+
+        <div id="gridFuncionarios" class="grid-funcionarios">
+            <div class="loading">Buscando funcionários no sistema...</div>
+        </div>
+    </main>
+
+    <div id="modalFuncionario" class="modal-overlay">
+        <div class="modal-card">
+            <div class="modal-header">
+                <h3>Editar Funcionário</h3>
+                <button id="btnFecharModal" class="btn-close">&times;</button>
+            </div>
+            <form id="formEditarFuncionario" class="modal-form">
+                <div class="form-group">
+                    <label for="nome">Nome Completo</label>
+                    <input type="text" id="nome" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">E-mail Corporativo</label>
+                    <input type="email" id="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="cargo">Cargo / Função</label>
+                    <select id="cargo" required>
+                        <option value="Mecânico">Mecânico</option>
+                        <option value="Atendente">Atendente</option>
+                        <option value="Administrador">Administrador / Gerente</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn-block">Salvar Alterações</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="../js/funcionarios.js"></script>
+</body>
+
+</html>

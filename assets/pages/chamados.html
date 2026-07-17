@@ -38,11 +38,11 @@
     <div id="modalChamado" class="modal-overlay">
         <div class="modal-card">
             <div class="modal-header">
-                <h3>Abrir Novo Chamado</h3>
+                <h3 id="modalChamadoTitulo">Abrir Novo Chamado</h3>
                 <button id="btnFecharModal" class="btn-close">&times;</button>
             </div>
             <form id="formAbrirChamado" class="modal-form">
-                <div class="form-group">
+                <div class="form-group" id="veiculoSelectGroup">
                     <label for="veiculoSelect">Veículo</label>
                     <select id="veiculoSelect" required>
                         <option value="">Carregando veículos...</option>
@@ -56,7 +56,7 @@
                     <label for="descricao">Descrição (opcional)</label>
                     <textarea id="descricao" rows="4" placeholder="Descreva o problema com mais detalhes"></textarea>
                 </div>
-                <button type="submit" class="btn-block">Abrir Chamado</button>
+                <button type="submit" id="btnSalvarChamado" class="btn-block">Abrir Chamado</button>
             </form>
         </div>
     </div>
